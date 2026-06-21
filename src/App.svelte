@@ -2,6 +2,9 @@
   import { SvelteFlow, Background, Controls, Panel, MiniMap } from '@xyflow/svelte';
   import type { Node, Edge, Connection } from '@xyflow/svelte';
   import { onDestroy } from 'svelte';
+import { onMount } from 'svelte';
+import { inject } from '@vercel/analytics';
+
 
   import '@xyflow/svelte/dist/style.css';
 
@@ -416,7 +419,9 @@
     snapshot();
     setTimeout(() => propagate(nodes, edges), 50);
   }
-
+onMount(() => {
+  inject();
+});
   onDestroy(() => {
     Object.values(clockIntervals).forEach(clearInterval);
   });
